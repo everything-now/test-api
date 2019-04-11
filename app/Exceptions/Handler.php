@@ -46,6 +46,29 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($request->segment(1) == 'api'){
+            $statusCodes = [
+                401 => 'Unauthorized',
+                403 => 'Forbidden',
+                404 => 'Not found',
+                405 => 'Method not allowed',
+                422 => 'Unprocessable entity',
+                429 => 'Too many requests',
+                500 => 'Server error',
+            ];
+
+            $e = parent::render($request, $exception);
+            $statusCode = $e->getStatusCode();
+
+            key_exists($statusCode, $statusCodes) ? : $statusCode = 500;
+
+            return response()->json([
+                'code' => $statusCode,
+                'message' => $statusCodes[$statusCode],
+                'description' => $e->getOriginalcontent(),
+            ], $statusCode);
+        }
+
         return parent::render($request, $exception);
     }
 }

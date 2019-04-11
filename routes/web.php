@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
+	Route::apiResources([
+	    'categories' => 'CategoryController',
+	    'products'   => 'ProductController'
+	]);
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
