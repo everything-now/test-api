@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://testmyapi16.docs.apiary.io/">Docs</a>
                     <a href="{{ route('products.index') }}">Products</a>
                     <a href="{{ route('categories.index') }}">Categories</a>
                 </div>
